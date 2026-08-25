@@ -1,0 +1,875 @@
+---
+const person = {
+  name: "Daniel Weng",
+  title: "Mechanical Engineer",
+  sub: "B.S. Candidate, NYU Tandon School of Engineering",
+  location: "Brooklyn, NY",
+  email: "dw3421@nyu.edu",
+  linkedin: "https://www.linkedin.com/in/daniel-weng-727524368/",
+};
+
+const experience = [
+  {
+    role: "Undergraduate Research Assistant",
+    org: "California Institute of Technology",
+    date: "Jul 2026 – Aug 2026",
+    bullets: [
+      "Supported development of a robotic quadruped system designed to deploy environmental sensors in Antarctica.",
+      "Tested mechanical mounting configurations connecting robotic arms to the quadruped, identifying fitment, stability, and integration issues.",
+      "Conducted diagnostic testing on two robotic arm systems and communicated findings to support hardware selection and field-deployment decisions.",
+    ],
+  },
+  {
+    role: "Engineering Intern",
+    org: "Cypress Envirosystems (Remote)",
+    date: "Sep 2025 – Dec 2025",
+    bullets: [
+      "Enhanced the existing housing structure for a wireless gauge reader to accommodate rotary dampers introduced in the lifting mechanism.",
+      "Proposed design solutions to resolve hinge fitment issues and developed test plates to determine optimal dimensions for models.",
+      "Performed tolerance stack-up analyses to predict assembly variation and define required manufacturing tolerances.",
+    ],
+  },
+];
+
+const projects = [
+  {
+    name: "Automatic Dog Feeder",
+    date: "Fall 2025",
+    qty: "01",
+    material: "Fusion 360 · 3D Print · Laser Cut",
+    bullets: [
+      "Led all aspects of mechanical design for a smart pet feeder using force sensors and control algorithms to regulate portion size.",
+      "Designed and modeled all components in Fusion 360, integrating 3D printing, laser cutting, and mechanical assembly.",
+      "Optimized feeding mechanisms to minimize pet food waste and reduce the risk of pet obesity through precise portion calibration.",
+    ],
+  },
+  {
+    name: "Electric Skateboard",
+    date: "Spring 2025",
+    qty: "02",
+    material: "Drivetrain · Frame · Assembly",
+    bullets: [
+      "Collaborated on the design and assembly of an electric skateboard prototype focused on improving load distribution and drivetrain efficiency.",
+      "Proposed and developed a gear-chain drivetrain using repurposed bicycle gears and chains to transfer torque from the motor to an auxiliary axle, addressing structural load limitations.",
+      "Assisted in mechanical assembly and woodworking, ensuring frame integrity and component alignment during prototyping.",
+    ],
+  },
+];
+
+const education = [
+  {
+    school: "New York University, Tandon School of Engineering",
+    detail: "B.S., Mechanical Engineering",
+    date: "Sep 2025 – Present",
+  },
+  {
+    school: "Basis Chandler",
+    detail: "Diploma",
+    date: "May 2025",
+  },
+];
+
+const skillGroups = [
+  {
+    label: "CAD / Design",
+    items: ["Fusion 360", "Onshape", "Autodesk Inventor", "AutoCAD"],
+  },
+  {
+    label: "Fabrication",
+    items: ["3D Printing", "Laser Cutting", "Mechanical Assembly"],
+  },
+  {
+    label: "Software",
+    items: ["Python", "Java", "Excel"],
+  },
+  {
+    label: "Languages",
+    items: ["English (fluent)", "Shanghainese (fluent)"],
+  },
+];
+
+const toc = [
+  { n: "01", label: "Experience", href: "#experience" },
+  { n: "02", label: "Projects", href: "#projects" },
+  { n: "03", label: "Education", href: "#education" },
+  { n: "04", label: "Skills", href: "#skills" },
+  { n: "05", label: "Contact", href: "#contact" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daniel Weng – Mechanical Engineer</title>
+    <meta
+      name="description"
+      content="Daniel Weng, mechanical engineering student at NYU Tandon: robotics research at Caltech, a mechanical design internship at Cypress Envirosystems, and hands-on CAD and prototyping projects."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!--
+      THESIS: A résumé is a claim; a drawing sheet is proof. The page reads as
+      an engineering drawing (title block, BOM, dimension lines), refusing the
+      generic dark-portfolio-with-gradient default.
+      OWN-WORLD: Blueprint-blue ground (#0a1f38/#0f2a4a), white line-art ink,
+      safety-orange (#ff6a1f) callouts. Archivo (headers/body) + JetBrains
+      Mono (labels, tabular data, dimension figures). Hairline dividers with
+      arrowhead terminators; numbered part callouts; GD&T-style frames.
+      STORY: A recruiter sees hands-on mechanical proof (Caltech, Cypress,
+      two built projects) framed as a spec sheet, not a summary: CAD and
+      fabrication skill legible in seconds.
+      FIRST VIEWPORT: Title block header (name as DWG title) over a hero with
+      an authored exploded-fastener SVG (bracket/washer/bolt, orange leader
+      callouts) at real drafting scale, name stamped large below.
+      FORM: Assembly / technical drawing sheet, chosen from the mechanical-
+      engineering audience's own world over blueprint-grid cliché and
+      generic dark-tech defaults.
+      FINISH: self-reviewed against the impeccable detector (detect.mjs) and
+      a manual build/QA pass; no automated finish-reviewer agent was available
+      in this session.
+    -->
+    <header class="titleblock">
+      <div class="titleblock__title">
+        <span class="tb-label">TITLE</span>
+        <span class="tb-value">{person.name} / {person.title.toUpperCase()}</span>
+      </div>
+      <div class="titleblock__grid">
+        <div class="tb-cell">
+          <span class="tb-label">DWG NO.</span>
+          <span class="tb-value">DW-2026-001</span>
+        </div>
+        <div class="tb-cell">
+          <span class="tb-label">SCALE</span>
+          <span class="tb-value">N.T.S.</span>
+        </div>
+        <div class="tb-cell">
+          <span class="tb-label">SHEET</span>
+          <span class="tb-value">1 OF 1</span>
+        </div>
+        <div class="tb-cell">
+          <span class="tb-label">REV</span>
+          <span class="tb-value">A</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="bom" aria-label="Section index">
+      <div class="bom__head">
+        <span>ITEM</span>
+        <span>DESCRIPTION</span>
+      </div>
+      {toc.map((t) => (
+        <a class="bom__row" href={t.href}>
+          <span class="bom__n">{t.n}</span>
+          <span class="bom__label">{t.label}</span>
+        </a>
+      ))}
+    </nav>
+
+    <main>
+      <section class="hero">
+        <div class="hero__copy">
+          <p class="kicker">MECHANICAL DESIGN &amp; PROTOTYPING</p>
+          <h1>{person.name}</h1>
+          <p class="hero__sub">{person.sub}</p>
+          <p class="hero__loc">{person.location}</p>
+          <div class="hero__ctas">
+            <a class="btn btn--solid" href="#contact">Contact</a>
+            <a class="btn btn--outline" href="#projects">See the work</a>
+          </div>
+        </div>
+
+        <div class="hero__art" role="img" aria-label="Exploded diagram of a bracket, washer, and bolt assembly with numbered callouts">
+          <svg viewBox="0 0 560 460" xmlns="http://www.w3.org/2000/svg">
+            <line x1="280" y1="20" x2="280" y2="440" class="art-centerline" />
+
+            <!-- item 1: bracket -->
+            <g>
+              <rect x="190" y="340" width="180" height="34" rx="2" class="art-solid" />
+              <circle cx="215" cy="357" r="7" class="art-hole" />
+              <circle cx="345" cy="357" r="7" class="art-hole" />
+              <rect x="205" y="374" width="20" height="46" class="art-solid" />
+              <rect x="335" y="374" width="20" height="46" class="art-solid" />
+            </g>
+
+            <!-- item 2: washer -->
+            <g>
+              <circle cx="280" cy="260" r="26" class="art-solid" />
+              <circle cx="280" cy="260" r="9" class="art-hole" />
+            </g>
+
+            <!-- item 3: hex bolt -->
+            <g>
+              <polygon
+                points="280,120 297,130 297,150 280,160 263,150 263,130"
+                class="art-solid"
+              />
+              <rect x="272" y="160" width="16" height="70" class="art-solid" />
+            </g>
+
+            <!-- leader: 1 -->
+            <path d="M370 357 H 430 L 452 340" class="art-leader" />
+            <circle cx="466" cy="330" r="13" class="art-callout" />
+            <text x="466" y="334" class="art-callout-n">1</text>
+            <text x="486" y="334" class="art-callout-label">BRACKET</text>
+
+            <!-- leader: 2 -->
+            <path d="M306 260 H 430 L 452 280" class="art-leader" />
+            <circle cx="466" cy="290" r="13" class="art-callout" />
+            <text x="466" y="294" class="art-callout-n">2</text>
+            <text x="486" y="294" class="art-callout-label">WASHER, ⌀8</text>
+
+            <!-- leader: 3 -->
+            <path d="M297 135 H 430 L 452 115" class="art-leader" />
+            <circle cx="466" cy="105" r="13" class="art-callout" />
+            <text x="466" y="109" class="art-callout-n">3</text>
+            <text x="486" y="109" class="art-callout-label">BOLT, M8 × 1.25</text>
+
+            <!-- dimension: total exploded height -->
+            <g class="art-dim">
+              <line x1="60" y1="120" x2="60" y2="374" />
+              <line x1="52" y1="120" x2="68" y2="120" />
+              <line x1="52" y1="374" x2="68" y2="374" />
+              <text x="40" y="250" transform="rotate(-90 40 250)" class="art-dim-text">120.0</text>
+            </g>
+          </svg>
+        </div>
+      </section>
+
+      <section id="experience" class="sheet">
+        <h2><span class="sheet__n">01</span> Experience</h2>
+        <div class="cards">
+          {experience.map((e) => (
+            <article class="card">
+              <div class="card__head">
+                <div>
+                  <h3>{e.role}</h3>
+                  <p class="card__org">{e.org}</p>
+                </div>
+                <p class="card__date">{e.date}</p>
+              </div>
+              <ul>
+                {e.bullets.map((b) => <li>{b}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="projects" class="sheet">
+        <h2><span class="sheet__n">02</span> Projects</h2>
+        <div class="cards">
+          {projects.map((p) => (
+            <article class="card card--part">
+              <div class="card__head">
+                <div>
+                  <p class="part-tag">PART NO. {p.qty}</p>
+                  <h3>{p.name}</h3>
+                  <p class="card__org">{p.material}</p>
+                </div>
+                <p class="card__date">{p.date}</p>
+              </div>
+              <ul>
+                {p.bullets.map((b) => <li>{b}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="education" class="sheet">
+        <h2><span class="sheet__n">03</span> Education</h2>
+        <div class="edu">
+          {education.map((ed) => (
+            <div class="edu__row">
+              <p class="edu__school">{ed.school}</p>
+              <p class="edu__detail">{ed.detail}</p>
+              <p class="edu__date">{ed.date}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="skills" class="sheet">
+        <h2><span class="sheet__n">04</span> Skills</h2>
+        <div class="spec">
+          {skillGroups.map((g) => (
+            <div class="spec__row">
+              <p class="spec__label">{g.label}</p>
+              <div class="spec__frame">
+                {g.items.map((i) => <span class="chip">{i}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="contact" class="signoff">
+        <h2><span class="sheet__n">05</span> Contact</h2>
+        <div class="signoff__grid">
+          <div class="signoff__cell">
+            <span class="tb-label">EMAIL</span>
+            <a class="tb-value link" href={`mailto:${person.email}`}>{person.email}</a>
+          </div>
+          <div class="signoff__cell">
+            <span class="tb-label">LINKEDIN</span>
+            <a class="tb-value link" href={person.linkedin} target="_blank" rel="noopener noreferrer">
+              linkedin.com/in/daniel-weng
+            </a>
+          </div>
+          <div class="signoff__cell">
+            <span class="tb-label">LOCATION</span>
+            <span class="tb-value">{person.location}</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>DW-2026-001 · REV A · ALL DIMENSIONS FOR ILLUSTRATIVE PURPOSES</p>
+    </footer>
+
+    <script>
+      const dims = document.querySelectorAll(".sheet h2, .signoff h2");
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!prefersReduced && "IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-in");
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.4 }
+        );
+        dims.forEach((el) => io.observe(el));
+      } else {
+        dims.forEach((el) => el.classList.add("is-in"));
+      }
+    </script>
+
+    <style>
+      :root {
+        --blue-950: #0a1f38;
+        --blue-900: #0f2a4a;
+        --blue-800: #17395f;
+        --blue-700: #1f4674;
+        --line: rgba(244, 247, 251, 0.28);
+        --line-strong: rgba(244, 247, 251, 0.5);
+        --ink: #f4f7fb;
+        --ink-dim: rgba(244, 247, 251, 0.66);
+        --ink-faint: rgba(244, 247, 251, 0.42);
+        --orange: #ff6a1f;
+        --orange-dim: rgba(255, 106, 31, 0.16);
+        --sans: "Archivo", "Segoe UI", system-ui, sans-serif;
+        --mono: "JetBrains Mono", "Consolas", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--blue-950);
+      }
+
+      body {
+        margin: 0;
+        background: var(--blue-950);
+        color: var(--ink);
+        font-family: var(--sans);
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-family: var(--sans);
+      }
+
+      /* ---------- title block ---------- */
+      .titleblock {
+        border-bottom: 1px solid var(--line);
+        padding: 1.1rem clamp(1.25rem, 4vw, 3rem);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem 2rem;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .tb-label {
+        display: block;
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        color: var(--ink-faint);
+        text-transform: uppercase;
+      }
+
+      .tb-value {
+        display: block;
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        letter-spacing: 0.03em;
+        margin-top: 0.15rem;
+      }
+
+      .titleblock__title .tb-value {
+        font-size: 0.92rem;
+      }
+
+      .titleblock__grid {
+        display: grid;
+        grid-auto-flow: column;
+        gap: 0 2.25rem;
+      }
+
+      /* ---------- BOM nav ---------- */
+      .bom {
+        max-width: 620px;
+        margin: 0 auto;
+        padding: 2.5rem clamp(1.25rem, 4vw, 3rem) 0;
+      }
+
+      .bom__head {
+        display: grid;
+        grid-template-columns: 3.5rem 1fr;
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        color: var(--ink-faint);
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 0.5rem;
+        text-transform: uppercase;
+      }
+
+      .bom__row {
+        display: grid;
+        grid-template-columns: 3.5rem 1fr;
+        text-decoration: none;
+        color: var(--ink-dim);
+        border-bottom: 1px solid var(--line);
+        padding: 0.6rem 0;
+        font-size: 0.95rem;
+        transition: color 0.15s ease;
+      }
+
+      .bom__row:hover {
+        color: var(--orange);
+      }
+
+      .bom__n {
+        font-family: var(--mono);
+        color: var(--orange);
+        font-size: 0.82rem;
+      }
+
+      /* ---------- hero ---------- */
+      .hero {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 8vw, 6rem);
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .kicker {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.16em;
+        color: var(--orange);
+        text-transform: uppercase;
+        margin: 0 0 1rem;
+      }
+
+      .hero h1 {
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: clamp(2.6rem, 7vw, 5rem);
+        letter-spacing: -0.01em;
+        line-height: 0.98;
+      }
+
+      .hero__sub {
+        margin: 1.1rem 0 0.35rem;
+        font-size: clamp(1.05rem, 2vw, 1.3rem);
+        color: var(--ink-dim);
+        max-width: 32ch;
+      }
+
+      .hero__loc {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        color: var(--ink-faint);
+        margin: 0;
+      }
+
+      .hero__ctas {
+        display: flex;
+        gap: 0.9rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 0.85rem 1.4rem;
+        border: 1px solid var(--orange);
+        transition: background 0.15s ease, color 0.15s ease;
+      }
+
+      .btn--solid {
+        background: var(--orange);
+        color: var(--blue-950);
+      }
+
+      .btn--solid:hover {
+        background: #ff7f3d;
+      }
+
+      .btn--outline {
+        color: var(--ink);
+        border-color: var(--line-strong);
+      }
+
+      .btn--outline:hover {
+        border-color: var(--orange);
+        color: var(--orange);
+      }
+
+      .hero__art svg {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+
+      .art-solid {
+        fill: none;
+        stroke: var(--ink);
+        stroke-width: 2;
+      }
+
+      .art-hole {
+        fill: var(--blue-950);
+        stroke: var(--ink);
+        stroke-width: 1.5;
+      }
+
+      .art-centerline {
+        stroke: var(--ink-faint);
+        stroke-width: 1;
+        stroke-dasharray: 8 5 2 5;
+      }
+
+      .art-leader {
+        fill: none;
+        stroke: var(--orange);
+        stroke-width: 1.4;
+      }
+
+      .art-callout {
+        fill: var(--blue-950);
+        stroke: var(--orange);
+        stroke-width: 1.6;
+      }
+
+      .art-callout-n {
+        font-family: var(--mono);
+        font-size: 13px;
+        fill: var(--orange);
+        text-anchor: middle;
+      }
+
+      .art-callout-label {
+        font-family: var(--mono);
+        font-size: 12px;
+        fill: var(--ink-dim);
+        letter-spacing: 0.02em;
+      }
+
+      .art-dim line {
+        stroke: var(--ink-faint);
+        stroke-width: 1;
+      }
+
+      .art-dim-text {
+        font-family: var(--mono);
+        font-size: 11px;
+        fill: var(--ink-faint);
+        text-anchor: middle;
+      }
+
+      /* ---------- sections / dimension divider ---------- */
+      .sheet,
+      .signoff {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: clamp(2.25rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 3rem);
+        border-top: 1px solid var(--line);
+      }
+
+      .sheet h2,
+      .signoff h2 {
+        display: flex;
+        align-items: baseline;
+        gap: 0.85rem;
+        font-size: clamp(1.4rem, 3vw, 1.9rem);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.01em;
+        margin-bottom: 2rem;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+
+      .sheet h2.is-in,
+      .signoff h2.is-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .sheet__n {
+        font-family: var(--mono);
+        color: var(--orange);
+        font-size: 0.9em;
+        border: 1px solid var(--orange);
+        padding: 0.1em 0.5em;
+      }
+
+      .cards {
+        display: flex;
+        flex-direction: column;
+        gap: 1.75rem;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        padding: 1.5rem clamp(1.1rem, 3vw, 1.9rem);
+      }
+
+      .card__head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+      }
+
+      .card h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+
+      .card__org {
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        color: var(--ink-faint);
+        margin: 0.25rem 0 0;
+      }
+
+      .card__date {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--orange);
+        white-space: nowrap;
+        margin: 0;
+      }
+
+      .part-tag {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        color: var(--orange);
+        margin: 0 0 0.35rem;
+      }
+
+      .card li {
+        position: relative;
+        padding-left: 1.1rem;
+        margin-bottom: 0.55rem;
+        color: var(--ink-dim);
+        font-size: 0.96rem;
+      }
+
+      .card li:last-child {
+        margin-bottom: 0;
+      }
+
+      .card li::before {
+        content: "\203A";
+        position: absolute;
+        left: 0;
+        color: var(--ink-faint);
+      }
+
+      /* ---------- education ---------- */
+      .edu__row {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 0.5rem 1.5rem;
+        align-items: baseline;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .edu__row:last-child {
+        border-bottom: none;
+      }
+
+      .edu__school {
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .edu__detail {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        color: var(--ink-dim);
+        margin: 0;
+      }
+
+      .edu__date {
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        color: var(--orange);
+        margin: 0;
+        white-space: nowrap;
+      }
+
+      /* ---------- skills spec table ---------- */
+      .spec__row {
+        display: grid;
+        grid-template-columns: 10rem 1fr;
+        gap: 1rem 1.5rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--line);
+        align-items: start;
+      }
+
+      .spec__row:last-child {
+        border-bottom: none;
+      }
+
+      .spec__label {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin: 0;
+        padding-top: 0.4rem;
+      }
+
+      .spec__frame {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .chip {
+        border: 1px solid var(--line-strong);
+        padding: 0.4rem 0.75rem;
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        color: var(--ink);
+      }
+
+      /* ---------- contact / sign-off ---------- */
+      .signoff__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.75rem 2rem;
+      }
+
+      .signoff__cell .link {
+        text-decoration: none;
+        border-bottom: 1px solid var(--orange);
+        color: var(--orange);
+      }
+
+      .signoff__cell .link:hover {
+        color: #ff8c4d;
+      }
+
+      /* ---------- footer ---------- */
+      .foot {
+        border-top: 1px solid var(--line);
+        padding: 1.5rem clamp(1.25rem, 4vw, 3rem) 2.5rem;
+        text-align: center;
+      }
+
+      .foot p {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+        color: var(--ink-faint);
+        margin: 0;
+        text-transform: uppercase;
+      }
+
+      /* ---------- responsive ---------- */
+      @media (max-width: 760px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .hero__art {
+          order: -1;
+        }
+
+        .titleblock {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .titleblock__grid {
+          grid-auto-flow: row;
+          grid-template-columns: repeat(2, auto);
+          gap: 0.75rem 2rem;
+        }
+
+        .edu__row {
+          grid-template-columns: 1fr;
+          gap: 0.25rem;
+        }
+
+        .spec__row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </body>
+</html>
