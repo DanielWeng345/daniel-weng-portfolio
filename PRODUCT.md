@@ -51,7 +51,7 @@ Source: `C:\Users\Daniel\Downloads\Resume (Engineering).pdf`
 
 **Skills**
 - Technical: Excel, Java, Python, Fusion 360, Onshape, Autodesk Inventor, AutoCAD, 3D printing, laser cutting, mechanical assembly.
-- Languages: Fluent in English and Chinese (Shanghainese).
+- Languages: Fluent in English and Mandarin Chinese.
 
 No photos, testimonials, or press on hand — do not fabricate any of these.
 
