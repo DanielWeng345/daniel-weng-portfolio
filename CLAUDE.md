@@ -49,30 +49,54 @@ etc.) — fix what's real, use judgment on the rest.
 
 This is currently a **single-file site**: `src/pages/index.astro` contains
 the entire page — content data (frontmatter JS objects for experience,
-projects, education, skills), markup, and a scoped `<style>` block, plus a
-small inline `<script>` for scroll-in section reveals. There are no shared
-components yet; if the site grows past one page, extract repeated pieces
-(the title-block header, BOM nav, card component) into `src/components/`
-before duplicating markup.
+projects, education, skills), markup, a scoped `<style>` block, and an
+inline `<script>`. There are no shared components yet; if the site grows
+past one page, extract repeated pieces (the title-block header, page-rail
+nav, card component) into `src/components/` before duplicating markup.
+
+The page is **paged, not a long scroll**: each top-level section is a
+`min-height: 100svh` panel with CSS scroll-snap (`[data-sheet]` attributes
+number them 1–6), a sticky title block stays pinned across pages with a
+live `SHEET n OF 6` counter, and the old top-of-page BOM nav is now a
+persistent fixed page-rail (`.bom`, right side desktop / bottom strip
+mobile). The `<script>` block drives all of this: sticky-header height
+measurement, the IntersectionObserver that tracks the active page,
+Up/Down/PageUp/PageDown paging, and — separately — the Experience section's
+tab-switching logic. Read `DESIGN.md`'s Layout/Motion sections before
+touching any of this; it's easy to break the snap/sticky/rail interplay by
+changing one piece in isolation.
+
+The **Experience section is a deliberately-more-prominent "feature"
+section** (`.sheet--feature`/`.card--feature`) than Other Projects: wider
+container, larger type, a vertical ARIA tablist (one employer at a time,
+`experience[i].tabLabel` drives the tab text) instead of stacked cards, and
+a bigger photo-evidence placeholder panel per entry (`.card__figure`, "FIG.
+0n — Photo pending" — swap for a real `<img>` once Daniel provides photos).
+Other Projects intentionally stayed plain (stacked cards, no photo panel,
+narrower container) — that contrast is the point, not an oversight.
 
 All page content (name, dates, bullet points, skills) is sourced from
 `Resume (Engineering).pdf` (originally at
-`C:\Users\Daniel\Downloads\Resume (Engineering).pdf`) and transcribed
+`C:\Users\Daniel\Downloads\Resume (Engineering).pdf`), transcribed
 verbatim into the frontmatter data arrays in `index.astro` — do not invent
 or embellish facts there; update PRODUCT.md's "Evidence on Hand" section
-first if the underlying facts change, then sync `index.astro`.
+first if the underlying facts change, then sync `index.astro`. One
+confirmed correction since the original transcription: languages is
+"Mandarin Chinese," not "Shanghainese."
 
-The visual direction (blueprint-blue ground, safety-orange accent, Archivo +
+The visual direction (graphite ground, electric-blue accent, Archivo +
 JetBrains Mono type, "engineering drawing sheet" metaphor: title block, BOM
-nav, dimension-line dividers, parts-list-style project cards) is recorded in
-full in `DESIGN.md`. Preserve that system when adding sections rather than
-introducing new colors/components ad hoc — extend the existing CSS custom
-properties (`--blue-950`, `--ink`, `--orange`, etc.) defined in `index.astro`'s
-`:root` block.
+page-rail, dimension-line dividers, parts-list-style project cards) is
+recorded in full in `DESIGN.md`. Preserve that system when adding sections
+rather than introducing new colors/components ad hoc — extend the existing
+CSS custom properties (`--graphite-950`, `--ink`, `--accent`, etc., all
+hue-agnostic names by design since the palette has already changed once)
+defined in `index.astro`'s `:root` block.
 
-No photos exist yet (see `PRODUCT.md` / `DESIGN.md` "Open items") — the hero
-uses a hand-authored inline SVG (exploded bracket/washer/bolt illustration)
-in place of a headshot or product photography.
+No photos exist yet beyond the Experience placeholders described above (see
+`PRODUCT.md` / `DESIGN.md` "Open items") — the hero still uses a
+hand-authored inline SVG (exploded bracket/washer/bolt illustration) in
+place of a headshot or product photography.
 
 ## Deployment
 
