@@ -21,9 +21,12 @@ npm run preview    # serve the built dist/ output locally
 
 There is no test suite and no linter configured.
 
-Node.js and Git were not preinstalled on this machine — both were installed
-via `winget` (OpenJS.NodeJS.LTS, Git.Git). If `node`/`npm`/`git` aren't on
-PATH in a fresh shell, refresh it with:
+Node.js, Git, and FFmpeg were not preinstalled on this machine — all three
+were installed via `winget` (OpenJS.NodeJS.LTS, Git.Git, Gyan.FFmpeg).
+FFmpeg is only needed for one-off media prep (e.g. compressing a source
+video down to a small GIF for a `card__figure` photo — see Architecture);
+it's not a build dependency. If `node`/`npm`/`git`/`ffmpeg` aren't on PATH
+in a fresh shell, refresh it with:
 ```powershell
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 ```
@@ -57,9 +60,11 @@ nav, card component) into `src/components/` before duplicating markup.
 The page is **paged, not a long scroll**: each top-level section is a
 `min-height: 100svh` panel with CSS scroll-snap (`[data-sheet]` attributes
 number them 1–6), a sticky title block stays pinned across pages with a
-live `SHEET n OF 6` counter, and the old top-of-page BOM nav is now a
-persistent fixed page-rail (`.bom`, right side desktop / bottom strip
-mobile). The `<script>` block drives all of this: sticky-header height
+live `SHEET n OF 6` counter (the title block's *only* field now — DWG NO./
+SCALE/REV/name were cut; see `DESIGN.md`), and the old top-of-page BOM nav
+is now a persistent fixed page-rail (`.bom`, right side desktop / bottom
+strip mobile) whose tabs pop a tooltip with both the section name and a
+short `desc`. The `<script>` block drives all of this: sticky-header height
 measurement, the IntersectionObserver that tracks the active page,
 Up/Down/PageUp/PageDown paging, and — separately — the Experience section's
 tab-switching logic. Read `DESIGN.md`'s Layout/Motion sections before
@@ -69,11 +74,21 @@ changing one piece in isolation.
 The **Experience section is a deliberately-more-prominent "feature"
 section** (`.sheet--feature`/`.card--feature`) than Other Projects: wider
 container, larger type, a vertical ARIA tablist (one employer at a time,
-`experience[i].tabLabel` drives the tab text) instead of stacked cards, and
-a bigger photo-evidence placeholder panel per entry (`.card__figure`, "FIG.
-0n — Photo pending" — swap for a real `<img>` once Daniel provides photos).
-Other Projects intentionally stayed plain (stacked cards, no photo panel,
-narrower container) — that contrast is the point, not an oversight.
+`experience[i].tabLabel` drives the tab text, plus a `desc` shown next to
+the date) instead of stacked cards, and a bigger photo-evidence gallery per
+entry. Other Projects intentionally stayed plain (stacked cards, no photo
+gallery, narrower container) — that contrast is the point, not an oversight.
+
+Each `experience[i].images` is an array of `{ src, alt, caption }`, rendered
+as one `.card__figure` panel per photo (`.card__figures` stacks them). FIG.
+numbers are computed once in the frontmatter (`figCount`/`e.figs`) as a
+running total across the *entire* experience array, not per card — so a
+card with an empty `images` array still reserves the next number and shows
+a dashed "Photo pending" placeholder, and adding a second photo to an entry
+just pushes every later FIG. number up by one. Both current entries have
+real media: Caltech's is a GIF (compressed from a source video with
+`ffmpeg` — see Commands — since browsers autoplay/loop `<img src="*.gif">`
+natively, no video player needed); Cypress's is a CAD screenshot PNG.
 
 All page content (name, dates, bullet points, skills) is sourced from
 `Resume (Engineering).pdf` (originally at
@@ -89,14 +104,22 @@ JetBrains Mono type, "engineering drawing sheet" metaphor: title block, BOM
 page-rail, dimension-line dividers, parts-list-style project cards) is
 recorded in full in `DESIGN.md`. Preserve that system when adding sections
 rather than introducing new colors/components ad hoc — extend the existing
-CSS custom properties (`--graphite-950`, `--ink`, `--accent`, etc., all
-hue-agnostic names by design since the palette has already changed once)
-defined in `index.astro`'s `:root` block.
+CSS custom properties (`--graphite-950`, `--ink`, `--accent`, etc., named
+hue-agnostically on purpose in case the accent hue changes) defined in
+`index.astro`'s `:root` block.
 
-No photos exist yet beyond the Experience placeholders described above (see
-`PRODUCT.md` / `DESIGN.md` "Open items") — the hero still uses a
-hand-authored inline SVG (exploded bracket/washer/bolt illustration) in
-place of a headshot or product photography.
+The hero is text-only (kicker, name, subtitle, location, Contact + Resume
+buttons) — no headshot or hero art. Two earlier hero-art directions (a
+hand-authored exploded-bolt SVG, then a procedurally-generated spinning
+ASCII gear/hex-bolt built with a small isInsideX/buildXFrame generator in
+the frontmatter plus a frame-cycling `<script>`) were both tried and then
+removed; if hero art comes back, generate it rather than resurrecting
+either of those from history. See `PRODUCT.md` / `DESIGN.md` "Open items"
+for what photos are still missing (headshot, Other Projects).
+
+The Resume button (`/Daniel-Weng-Resume.pdf`) opens a copy of
+`Resume (Engineering).pdf` placed in `public/` under a cleaner name — keep
+that file in sync if the source resume changes.
 
 ## Deployment
 

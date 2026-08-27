@@ -23,7 +23,7 @@ Visitors are typically recruiters/hiring managers skimming briefly, often arrivi
 
 ## Capabilities and Constraints
 - Static site, no backend or CMS.
-- No photos available yet — use placeholders/icons for headshot and project imagery until Daniel provides real photos.
+- Photos come in as Daniel provides them; use placeholders/icons until then. Experience now has real media for both entries (Caltech field-test GIF, Cypress CAD screenshot); no headshot or Other Projects photos yet.
 - Content sourced from `Resume (Engineering).pdf` (see Evidence on Hand).
 - Deploy target undecided — static stack keeps Vercel/Netlify/GitHub Pages all viable.
 
@@ -53,7 +53,9 @@ Source: `C:\Users\Daniel\Downloads\Resume (Engineering).pdf`
 - Technical: Excel, Java, Python, Fusion 360, Onshape, Autodesk Inventor, AutoCAD, 3D printing, laser cutting, mechanical assembly.
 - Languages: Fluent in English and Mandarin Chinese.
 
-No photos, testimonials, or press on hand — do not fabricate any of these.
+No testimonials or press on hand — do not fabricate either. Photos are
+added as Daniel supplies them (see Capabilities and Constraints); still
+none for a headshot or for Other Projects.
 
 ## Product Principles
 1. Lead with hands-on project evidence over claims — show the process (design, testing, iteration), not just outcomes.

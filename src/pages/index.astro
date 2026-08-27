@@ -11,9 +11,17 @@ const person = {
 const experience = [
   {
     tabLabel: "Caltech",
+    desc: "Robotic arm mounting & diagnostics",
     role: "Undergraduate Research Assistant",
     org: "California Institute of Technology",
     date: "Jul 2026 – Aug 2026",
+    images: [
+      {
+        src: "/fig-01-caltech-quadruped.gif",
+        alt: "The robotic quadruped with its mounted robotic arm walking across a grass field during field testing",
+        caption: "Quadruped field test",
+      },
+    ],
     bullets: [
       "Supported development of a robotic quadruped system designed to deploy environmental sensors in Antarctica.",
       "Tested mechanical mounting configurations connecting robotic arms to the quadruped, identifying fitment, stability, and integration issues.",
@@ -22,9 +30,17 @@ const experience = [
   },
   {
     tabLabel: "Cypress Envirosystems",
+    desc: "Housing redesign & tolerancing",
     role: "Engineering Intern",
     org: "Cypress Envirosystems (Remote)",
     date: "Sep 2025 – Dec 2025",
+    images: [
+      {
+        src: "/fig-02-cypress-gauge-bracket.png",
+        alt: "CAD model of the redesigned wireless gauge reader housing and mounting bracket, showing the hinge and rotary damper assembly",
+        caption: "Housing bracket, Onshape",
+      },
+    ],
     bullets: [
       "Enhanced the existing housing structure for a wireless gauge reader to accommodate rotary dampers introduced in the lifting mechanism.",
       "Proposed design solutions to resolve hinge fitment issues and developed test plates to determine optimal dimensions for models.",
@@ -32,6 +48,18 @@ const experience = [
     ],
   },
 ];
+
+// Number figures sequentially across the whole section (like a real BOM
+// sheet), not per-card — a card with no photos yet still reserves the next
+// number as a "Photo pending" placeholder so it stays stable once filled in.
+let figCount = 0;
+experience.forEach((e) => {
+  const slots = e.images?.length ? e.images : [null];
+  e.figs = slots.map((img) => {
+    figCount += 1;
+    return img ? { ...img, n: figCount } : { n: figCount, pending: true };
+  });
+});
 
 const projects = [
   {
@@ -91,11 +119,11 @@ const skillGroups = [
 ];
 
 const toc = [
-  { n: "01", label: "Experience", href: "#experience" },
-  { n: "02", label: "Other Projects", href: "#projects" },
-  { n: "03", label: "Education", href: "#education" },
-  { n: "04", label: "Skills", href: "#skills" },
-  { n: "05", label: "Contact", href: "#contact" },
+  { n: "01", label: "Experience", desc: "Caltech & Cypress Envirosystems roles", href: "#experience" },
+  { n: "02", label: "Other Projects", desc: "Dog feeder & electric skateboard builds", href: "#projects" },
+  { n: "03", label: "Education", desc: "NYU Tandon, B.S. Mechanical Engineering", href: "#education" },
+  { n: "04", label: "Skills", desc: "CAD, fabrication, and software tools", href: "#skills" },
+  { n: "05", label: "Contact", desc: "Email and LinkedIn", href: "#contact" },
 ];
 ---
 
@@ -141,28 +169,8 @@ const toc = [
       in this session.
     -->
     <header class="titleblock">
-      <div class="titleblock__title">
-        <span class="tb-label">TITLE</span>
-        <span class="tb-value">{person.name} / {person.title.toUpperCase()}</span>
-      </div>
-      <div class="titleblock__grid">
-        <div class="tb-cell">
-          <span class="tb-label">DWG NO.</span>
-          <span class="tb-value">DW-2026-001</span>
-        </div>
-        <div class="tb-cell">
-          <span class="tb-label">SCALE</span>
-          <span class="tb-value">N.T.S.</span>
-        </div>
-        <div class="tb-cell">
-          <span class="tb-label">SHEET</span>
-          <span class="tb-value" id="sheetValue">1 OF 6</span>
-        </div>
-        <div class="tb-cell">
-          <span class="tb-label">REV</span>
-          <span class="tb-value">A</span>
-        </div>
-      </div>
+      <span class="tb-label">SHEET</span>
+      <span class="tb-value" id="sheetValue">1 OF 6</span>
     </header>
 
     <nav class="bom" aria-label="Section index">
@@ -173,7 +181,10 @@ const toc = [
       {toc.map((t) => (
         <a class="bom__row" href={t.href}>
           <span class="bom__n">{t.n}</span>
-          <span class="bom__label">{t.label}</span>
+          <span class="bom__label">
+            <span class="bom__label-title">{t.label}</span>
+            <span class="bom__label-desc">{t.desc}</span>
+          </span>
         </a>
       ))}
     </nav>
@@ -187,64 +198,8 @@ const toc = [
           <p class="hero__loc">{person.location}</p>
           <div class="hero__ctas">
             <a class="btn btn--solid" href="#contact">Contact</a>
-            <a class="btn btn--outline" href="#projects">See the work</a>
+            <a class="btn btn--outline" href="/Daniel-Weng-Resume.pdf" target="_blank" rel="noopener">Resume</a>
           </div>
-        </div>
-
-        <div class="hero__art" role="img" aria-label="Exploded diagram of a bracket, washer, and bolt assembly with numbered callouts">
-          <svg viewBox="0 0 560 460" xmlns="http://www.w3.org/2000/svg">
-            <line x1="280" y1="20" x2="280" y2="440" class="art-centerline" />
-
-            <!-- item 1: bracket -->
-            <g>
-              <rect x="190" y="340" width="180" height="34" rx="2" class="art-solid" />
-              <circle cx="215" cy="357" r="7" class="art-hole" />
-              <circle cx="345" cy="357" r="7" class="art-hole" />
-              <rect x="205" y="374" width="20" height="46" class="art-solid" />
-              <rect x="335" y="374" width="20" height="46" class="art-solid" />
-            </g>
-
-            <!-- item 2: washer -->
-            <g>
-              <circle cx="280" cy="260" r="26" class="art-solid" />
-              <circle cx="280" cy="260" r="9" class="art-hole" />
-            </g>
-
-            <!-- item 3: hex bolt -->
-            <g>
-              <polygon
-                points="280,120 297,130 297,150 280,160 263,150 263,130"
-                class="art-solid"
-              />
-              <rect x="272" y="160" width="16" height="70" class="art-solid" />
-            </g>
-
-            <!-- leader: 1 -->
-            <path d="M370 357 H 430 L 452 340" class="art-leader" />
-            <circle cx="466" cy="330" r="13" class="art-callout" />
-            <text x="466" y="334" class="art-callout-n">1</text>
-            <text x="486" y="334" class="art-callout-label">BRACKET</text>
-
-            <!-- leader: 2 -->
-            <path d="M306 260 H 430 L 452 280" class="art-leader" />
-            <circle cx="466" cy="290" r="13" class="art-callout" />
-            <text x="466" y="294" class="art-callout-n">2</text>
-            <text x="486" y="294" class="art-callout-label">WASHER, ⌀8</text>
-
-            <!-- leader: 3 -->
-            <path d="M297 135 H 430 L 452 115" class="art-leader" />
-            <circle cx="466" cy="105" r="13" class="art-callout" />
-            <text x="466" y="109" class="art-callout-n">3</text>
-            <text x="486" y="109" class="art-callout-label">BOLT, M8 × 1.25</text>
-
-            <!-- dimension: total exploded height -->
-            <g class="art-dim">
-              <line x1="60" y1="120" x2="60" y2="374" />
-              <line x1="52" y1="120" x2="68" y2="120" />
-              <line x1="52" y1="374" x2="68" y2="374" />
-              <text x="40" y="250" transform="rotate(-90 40 250)" class="art-dim-text">120.0</text>
-            </g>
-          </svg>
         </div>
       </section>
 
@@ -263,7 +218,10 @@ const toc = [
                 tabindex={i === 0 ? 0 : -1}
               >
                 <span class="tab__org">{e.tabLabel}</span>
-                <span class="tab__date">{e.date}</span>
+                <span class="tab__meta">
+                  <span class="tab__date">{e.date}</span>
+                  <span class="tab__desc">{e.desc}</span>
+                </span>
               </button>
             ))}
           </div>
@@ -288,17 +246,25 @@ const toc = [
                     {e.bullets.map((b) => <li>{b}</li>)}
                   </ul>
                 </div>
-                <figure class="card__figure">
-                  <svg viewBox="0 0 32 24" aria-hidden="true">
-                    <rect x="1" y="1" width="30" height="22" rx="1" class="fig-frame" />
-                    <circle cx="9" cy="8" r="2.5" class="fig-frame" />
-                    <path d="M2 19 L11 11 L17 16 L22 10 L30 18" class="fig-frame" />
-                  </svg>
-                  <figcaption>
-                    <span class="card__figure-n">FIG. {String(i + 1).padStart(2, "0")}</span>
-                    <span class="card__figure-label">Photo pending</span>
-                  </figcaption>
-                </figure>
+                <div class="card__figures">
+                  {e.figs.map((fig) => (
+                    <figure class={`card__figure ${fig.pending ? "" : "card__figure--photo"}`}>
+                      {fig.pending ? (
+                        <svg viewBox="0 0 32 24" aria-hidden="true">
+                          <rect x="1" y="1" width="30" height="22" rx="1" class="fig-frame" />
+                          <circle cx="9" cy="8" r="2.5" class="fig-frame" />
+                          <path d="M2 19 L11 11 L17 16 L22 10 L30 18" class="fig-frame" />
+                        </svg>
+                      ) : (
+                        <img class="card__figure-img" src={fig.src} alt={fig.alt} />
+                      )}
+                      <figcaption>
+                        <span class="card__figure-n">FIG. {String(fig.n).padStart(2, "0")}</span>
+                        <span class="card__figure-label">{fig.pending ? "Photo pending" : fig.caption}</span>
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
               </article>
             ))}
           </div>
@@ -570,13 +536,11 @@ const toc = [
         top: 0;
         z-index: 30;
         background: var(--graphite-950);
-        border-bottom: 1px solid var(--line);
         padding: 1.1rem clamp(1.25rem, 4vw, 3rem);
         display: flex;
-        flex-wrap: wrap;
-        gap: 1rem 2rem;
-        justify-content: space-between;
-        align-items: center;
+        align-items: baseline;
+        justify-content: flex-end;
+        gap: 0.6rem;
       }
 
       .tb-value--tick {
@@ -609,16 +573,6 @@ const toc = [
         font-size: 0.82rem;
         letter-spacing: 0.03em;
         margin-top: 0.15rem;
-      }
-
-      .titleblock__title .tb-value {
-        font-size: 0.92rem;
-      }
-
-      .titleblock__grid {
-        display: grid;
-        grid-auto-flow: column;
-        gap: 0 2.25rem;
       }
 
       /* ---------- BOM nav: persistent page rail ---------- */
@@ -683,18 +637,32 @@ const toc = [
         right: calc(100% + 0.65rem);
         top: 50%;
         transform: translate(4px, -50%);
-        white-space: nowrap;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        width: 200px;
+        text-align: left;
+        background: var(--graphite-950);
+        border: 1px solid var(--line);
+        padding: 0.5rem 0.7rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s ease, transform 0.15s ease;
+      }
+
+      .bom__label-title {
         font-family: var(--mono);
         font-size: 0.72rem;
         letter-spacing: 0.06em;
         text-transform: uppercase;
         color: var(--ink-dim);
-        background: var(--graphite-950);
-        border: 1px solid var(--line);
-        padding: 0.3rem 0.55rem;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.15s ease, transform 0.15s ease;
+      }
+
+      .bom__label-desc {
+        font-family: var(--sans);
+        font-size: 0.72rem;
+        font-style: italic;
+        color: var(--ink-faint);
       }
 
       .bom__row:hover .bom__label,
@@ -708,14 +676,17 @@ const toc = [
         max-width: 1120px;
         margin: 0 auto;
         padding: clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 8vw, 6rem);
-        display: grid;
-        grid-template-columns: 1.05fr 0.95fr;
-        gap: 2rem;
-        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         scroll-snap-align: start;
         scroll-margin-top: var(--tb-h);
         min-height: calc(100vh - var(--tb-h));
         min-height: calc(100svh - var(--tb-h));
+      }
+
+      .hero__copy {
+        max-width: 640px;
       }
 
       .kicker {
@@ -786,67 +757,6 @@ const toc = [
         color: var(--accent);
       }
 
-      .hero__art svg {
-        width: 100%;
-        height: auto;
-        overflow: visible;
-      }
-
-      .art-solid {
-        fill: none;
-        stroke: var(--ink);
-        stroke-width: 2;
-      }
-
-      .art-hole {
-        fill: var(--graphite-950);
-        stroke: var(--ink);
-        stroke-width: 1.5;
-      }
-
-      .art-centerline {
-        stroke: var(--ink-faint);
-        stroke-width: 1;
-        stroke-dasharray: 8 5 2 5;
-      }
-
-      .art-leader {
-        fill: none;
-        stroke: var(--accent);
-        stroke-width: 1.4;
-      }
-
-      .art-callout {
-        fill: var(--graphite-950);
-        stroke: var(--accent);
-        stroke-width: 1.6;
-      }
-
-      .art-callout-n {
-        font-family: var(--mono);
-        font-size: 13px;
-        fill: var(--accent);
-        text-anchor: middle;
-      }
-
-      .art-callout-label {
-        font-family: var(--mono);
-        font-size: 12px;
-        fill: var(--ink-dim);
-        letter-spacing: 0.02em;
-      }
-
-      .art-dim line {
-        stroke: var(--ink-faint);
-        stroke-width: 1;
-      }
-
-      .art-dim-text {
-        font-family: var(--mono);
-        font-size: 11px;
-        fill: var(--ink-faint);
-        text-anchor: middle;
-      }
 
       /* ---------- sections / dimension divider ---------- */
       .sheet,
@@ -1008,6 +918,13 @@ const toc = [
         background: var(--accent-dim);
       }
 
+      .tab__meta {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
       .tab__date {
         font-family: var(--mono);
         font-weight: 400;
@@ -1016,7 +933,16 @@ const toc = [
         color: var(--ink-faint);
       }
 
-      .tab[aria-selected="true"] .tab__date {
+      .tab__desc {
+        font-family: var(--sans);
+        font-weight: 400;
+        font-style: italic;
+        font-size: 0.72rem;
+        color: var(--ink-faint);
+      }
+
+      .tab[aria-selected="true"] .tab__date,
+      .tab[aria-selected="true"] .tab__desc {
         color: var(--accent);
       }
 
@@ -1049,6 +975,12 @@ const toc = [
         min-width: 0;
       }
 
+      .card__figures {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
       .card__figure {
         margin: 0;
         aspect-ratio: 4 / 3;
@@ -1063,6 +995,19 @@ const toc = [
       .card__figure svg {
         width: 32px;
         height: 24px;
+      }
+
+      .card__figure--photo {
+        border-style: solid;
+        padding: 0.6rem;
+      }
+
+      .card__figure-img {
+        flex: 1;
+        width: 100%;
+        min-height: 0;
+        object-fit: contain;
+        background: var(--ink);
       }
 
       .fig-frame {
@@ -1200,25 +1145,6 @@ const toc = [
 
       /* ---------- responsive ---------- */
       @media (max-width: 760px) {
-        .hero {
-          grid-template-columns: 1fr;
-        }
-
-        .hero__art {
-          order: -1;
-        }
-
-        .titleblock {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .titleblock__grid {
-          grid-auto-flow: row;
-          grid-template-columns: repeat(2, auto);
-          gap: 0.75rem 2rem;
-        }
-
         .edu__row {
           grid-template-columns: 1fr;
           gap: 0.25rem;
@@ -1286,7 +1212,15 @@ const toc = [
           background: none;
           border: none;
           padding: 0;
+          width: auto;
+        }
+
+        .bom__label-title {
           font-size: 0.52rem;
+        }
+
+        .bom__label-desc {
+          display: none;
         }
       }
     </style>
