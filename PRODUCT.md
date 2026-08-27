@@ -23,7 +23,7 @@ Visitors are typically recruiters/hiring managers skimming briefly, often arrivi
 
 ## Capabilities and Constraints
 - Static site, no backend or CMS.
-- Photos come in as Daniel provides them; use placeholders/icons until then. Experience now has real media for both entries (Caltech field-test GIF, Cypress CAD screenshot); no headshot or Other Projects photos yet.
+- Photos come in as Daniel provides them; use placeholders/icons until then. Experience now has real media for both entries (Caltech field-test video; Cypress has four: CAD bracket, hinge test plate, tolerance stackup, rail sliding-clearance analysis); no headshot or Other Projects photos yet.
 - Content sourced from `Resume (Engineering).pdf` (see Evidence on Hand).
 - Deploy target undecided — static stack keeps Vercel/Netlify/GitHub Pages all viable.
 

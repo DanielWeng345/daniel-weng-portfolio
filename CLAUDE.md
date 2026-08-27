@@ -79,16 +79,44 @@ the date) instead of stacked cards, and a bigger photo-evidence gallery per
 entry. Other Projects intentionally stayed plain (stacked cards, no photo
 gallery, narrower container) — that contrast is the point, not an oversight.
 
-Each `experience[i].images` is an array of `{ src, alt, caption }`, rendered
-as one `.card__figure` panel per photo (`.card__figures` stacks them). FIG.
-numbers are computed once in the frontmatter (`figCount`/`e.figs`) as a
-running total across the *entire* experience array, not per card — so a
-card with an empty `images` array still reserves the next number and shows
-a dashed "Photo pending" placeholder, and adding a second photo to an entry
-just pushes every later FIG. number up by one. Both current entries have
-real media: Caltech's is a GIF (compressed from a source video with
-`ffmpeg` — see Commands — since browsers autoplay/loop `<img src="*.gif">`
-natively, no video player needed); Cypress's is a CAD screenshot PNG.
+Each `experience[i].images` is an array of `{ src, alt, caption, video? }`,
+rendered as one `.card__figure` panel per photo (`.card__figures` is a grid,
+`repeat(auto-fill, minmax(210px, 1fr))`, filling left-to-right before
+wrapping — a lone photo still spans the panel's full width via
+`.card__figure:only-child`). FIG. numbers are computed once in the
+frontmatter (`figCount`/`e.figs`) as a running total across the *entire*
+experience array, not per card — so a card with an empty `images` array
+still reserves the next number and shows a dashed "Photo pending"
+placeholder, and adding a photo to an entry pushes every later FIG. number
+up by one. The `.exp-layout` tab-list column and `.card--media` photo-panel
+column are both `clamp()`-based, not fixed px, specifically so this
+two-column layout degrades gracefully instead of overflowing past the
+sheet's edge into the fixed `.bom` page-rail at in-between viewport widths
+(tested empirically via an embedded same-origin iframe at a range of
+widths, since the sandboxed dev browser here can't itself be resized —
+see the `.sheet, .signoff` right-padding reserve too, sized to the rail's
+own footprint).
+
+Clicking any non-pending figure opens it in a centered lightbox
+(`#lightbox` + friends, near the end of `<body>`, wired up in the final
+block of the `<script>`) — Escape/backdrop-click/✕ close it, focus returns
+to the clicked figure, and the `.bom` rail plus the sticky title block
+`visibility: hidden` themselves while it's open (`html.lightbox-locked`) so
+nothing competes with the close button.
+
+Caltech's figure is a video (`fig.video: true`), not a photo: an autoplay/
+muted/loop/playsinline `<video>` in the card, swapped with the lightbox's
+own hidden `<video id="lightboxVideo">` (kept alongside `#lightboxImg`,
+toggled by `data-lightbox-video` on the trigger) when opened. It's encoded
+from the source field-test video via `ffmpeg` (see Commands) — **encode
+with `-pix_fmt yuv420p` and an explicit full→limited range conversion**
+(`scale=...:in_range=full:out_range=limited,format=yuv420p` + `-color_range
+tv`), not just `-pix_fmt yuv420p` alone: this source is full-range
+(`yuvj420p`/`color_range=pc`), and libx264 silently preserves that range
+tag even when the pixel format looks right, which stalls Chrome's decoder
+(`readyState` stuck at 0 forever, no error fired) while `ffprobe`/`ffmpeg`
+report the file as perfectly valid. Cypress's figures are CAD/spreadsheet
+screenshots (PNG).
 
 All page content (name, dates, bullet points, skills) is sourced from
 `Resume (Engineering).pdf` (originally at
