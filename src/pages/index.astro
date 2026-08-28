@@ -15,6 +15,7 @@ const experience = [
     role: "Undergraduate Research Assistant",
     org: "California Institute of Technology",
     date: "Jul 2026 – Aug 2026",
+    wideFigures: true,
     images: [
       {
         src: "/fig-01-caltech-quadruped-before.mp4",
@@ -250,7 +251,7 @@ const toc = [
           <div class="tabpanels">
             {experience.map((e, i) => (
               <article
-                class="card card--media card--feature tabpanel"
+                class={`card card--media card--feature tabpanel ${e.wideFigures ? "card--media--wide-figs" : ""}`}
                 id={`exp-panel-${i}`}
                 role="tabpanel"
                 aria-labelledby={`exp-tab-${i}`}
@@ -1119,6 +1120,18 @@ const toc = [
         pointer-events: none;
       }
 
+      /* Caltech only ever shows 1-2 figures (vs. Cypress's 4), so its
+         evidence panel gets more room and each figure a larger minimum —
+         same 4/3 box shape throughout, just scaled up, so nothing
+         stretches or distorts */
+      .card--media--wide-figs {
+        grid-template-columns: 1fr clamp(260px, 46vw, 560px);
+      }
+
+      .card--media--wide-figs .card__figures {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      }
+
       .card--feature h3 {
         font-size: 1.4rem;
       }
@@ -1452,6 +1465,10 @@ const toc = [
 
         .card__figures {
           grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        }
+
+        .card--media--wide-figs .card__figures {
+          grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         }
 
         /* page rail becomes a bottom tab strip with always-visible labels,
