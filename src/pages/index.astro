@@ -19,14 +19,14 @@ const experience = [
       {
         src: "/fig-01-caltech-quadruped-before.mp4",
         video: true,
-        aspect: "9 / 16",
+        fit: "cover",
         alt: "The robotic quadruped in the lab with a robotic arm mounted, near the start of my time on the project",
         caption: "Lab test — start of my time on the project",
       },
       {
         src: "/fig-02-caltech-quadruped-after.mp4",
         video: true,
-        aspect: "16 / 9",
+        fit: "cover",
         alt: "The robotic quadruped with its mounted robotic arm walking across a grass field during field testing",
         caption: "Field test — end of my time on the project",
       },
@@ -270,10 +270,7 @@ const toc = [
                 </div>
                 <div class="card__figures">
                   {e.figs.map((fig) => (
-                    <figure
-                      class={`card__figure ${fig.pending ? "" : "card__figure--photo"}`}
-                      style={fig.aspect ? `--fig-aspect: ${fig.aspect}` : undefined}
-                    >
+                    <figure class={`card__figure ${fig.pending ? "" : "card__figure--photo"}`}>
                       {fig.pending ? (
                         <svg viewBox="0 0 32 24" aria-hidden="true">
                           <rect x="1" y="1" width="30" height="22" rx="1" class="fig-frame" />
@@ -293,6 +290,7 @@ const toc = [
                           {fig.video ? (
                             <video
                               class="card__figure-img"
+                              style={fig.fit ? `object-fit: ${fig.fit}` : undefined}
                               src={fig.src}
                               autoplay
                               muted
@@ -1146,7 +1144,7 @@ const toc = [
 
       .card__figure {
         margin: 0;
-        aspect-ratio: var(--fig-aspect, 4 / 3);
+        aspect-ratio: 4 / 3;
         border: 1px dashed var(--line-strong);
         display: flex;
         flex-direction: column;
