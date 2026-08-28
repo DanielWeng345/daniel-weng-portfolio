@@ -54,11 +54,13 @@ const experience = [
       },
       {
         src: "/fig-05-cypress-tolerance-stack.png",
+        paper: true,
         alt: "Spreadsheet tolerance stack-up analysis for hinge/support clearance and risk of sliding off, listing six dimensioned features with their tolerance sources and computing nominal, worst-case, and 3-sigma RSS clearance results",
         caption: "Tolerance stackup",
       },
       {
         src: "/fig-06-cypress-rail-clearance.png",
+        paper: true,
         alt: "CAD assembly of a roller carriage on a rail with spring-loaded feet, dimension callouts A through F analyzing the risk of the carriage sliding off the rail",
         caption: "Risk of sliding off analysis",
       },
@@ -270,7 +272,9 @@ const toc = [
                 </div>
                 <div class="card__figures">
                   {e.figs.map((fig) => (
-                    <figure class={`card__figure ${fig.pending ? "" : "card__figure--photo"}`}>
+                    <figure
+                      class={`card__figure ${fig.pending ? "" : "card__figure--photo"} ${fig.paper ? "card__figure--paper" : ""}`}
+                    >
                       {fig.pending ? (
                         <svg viewBox="0 0 32 24" aria-hidden="true">
                           <rect x="1" y="1" width="30" height="22" rx="1" class="fig-frame" />
@@ -1184,8 +1188,18 @@ const toc = [
         width: 100%;
         height: 100%;
         object-fit: contain;
-        background: var(--ink);
+        background: var(--graphite-950);
         transition: opacity 0.15s ease;
+      }
+
+      /* figures whose source image is a white-background diagram with
+         black text/labels (unlike FIG. 03's plain CAD render, stripping
+         that white would make the labels unreadable) keep a light
+         "paper" backing instead of blending into the dark box, so they
+         read as a deliberate inset rather than a stray white rectangle */
+      .card__figure--paper .card__figure-img {
+        background: var(--ink);
+        border-radius: 4px;
       }
 
       .card__figure-trigger:hover .card__figure-img,
